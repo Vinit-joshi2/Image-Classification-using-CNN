@@ -134,3 +134,67 @@ show_batch(val_dl)
 ```
 <img src = "https://github.com/Vinit-joshi2/Image-Classification-using-CNN/blob/main/image2.2.png">
 
+### 3. Defining the Model (Convolutional Neural Network)
+
+<h4>
+  The 2D convolution is a fairly simple operation at heart: you start with a kernel, which is simply a small matrix of weights. This kernel “slides” over the 2D input data, performing an elementwise multiplication with the part of the input it is currently on, and then summing up the results into a single output pixel.
+</h4>
+
+
+<h4>
+  The Conv2d layer transforms a 3-channel image to a 16-channel feature map, and the MaxPool2d layer halves the height and width. The feature map gets smaller as we add more layers, until we are finally left with a small feature map, which can be flattened into a vector. We can then add some fully connected layers at the end to get vector of size 10 for each image.
+</h4>
+
+<img src = "https://github.com/Vinit-joshi2/Image-Classification-using-CNN/blob/main/image3.1.png">
+
+```
+class Cifar10CnnModel(ImageClassificationBase):
+
+  def __init__(self):
+    super().__init__()
+
+    self.network = nn.Sequential(
+        #  input - 3 x 32 x 32
+        nn.Conv2d(3,32, kernel_size=3 , padding  = 1) ,
+        # output 32 x 32 32
+        nn.ReLU(),
+        # output 32 x 32 32
+        nn.Conv2d(32 , 64 , kernel_size = 3 , stride = 1 , padding = 1) ,
+        nn.ReLU(),
+        # 64  x 32 x 32
+        nn.MaxPool2d(2,2), # output - 64 x 16 x 16
+
+        # input 64 x 16 x 16
+        nn.Conv2d(64 , 128 ,kernel_size=3 , stride= 1 , padding = 1),
+        nn.ReLU(),
+        # output 128 x 16 x 16
+        nn.Conv2d(128 , 128 , kernel_size = 3 , stride = 1 , padding = 1),
+        nn.ReLU(),
+        # output 128 x 16 x 16
+        nn.MaxPool2d(2,2) , # output 128 x 8 x 8
+
+        # input 128  x 8 x 8
+        nn.Conv2d(128 , 256 , kernel_size=3 , stride = 1 , padding = 1),
+        nn.ReLU(),
+        # output  256 x 8  x 8
+        nn.Conv2d(256 , 256  , kernel_size=3 , stride  = 1 , padding=1),
+        nn.ReLU(),
+        # output 256 x 8 x 8
+        nn.MaxPool2d(2,2), # output 256 x 4 x 4
+
+        #  convert it into 1D
+        nn.Flatten(),
+        nn.Linear(256 * 4 * 4 , 1024),
+        nn.ReLU(),
+        nn.Linear(1024 , 512),
+        nn.ReLU(),
+        nn.Linear(512 , 10),
+
+
+  )
+
+  def forward(self , xb):
+      return self.network(xb)
+
+```
+
