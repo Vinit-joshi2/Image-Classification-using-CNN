@@ -88,4 +88,49 @@ print(ship_test_files[:5])
 
   
 
-### 2. Model Architecture (CNN)
+### 2. Training and Validation Datasets
+
+```
+val_size = 5000
+train_size = len(dataset) - val_size
+
+train_ds , val_ds = random_split(dataset , [train_size , val_size])
+len(train_ds)  , len(val_ds)
+```
+<h4> 
+We can now create data loaders for training and validation, to load the data in batches
+</h4>
+
+```
+from torch.utils.data.dataloader import DataLoader
+batch_size = 128
+
+train_dl = DataLoader(train_ds , batch_size , shuffle = True , num_workers=4 , pin_memory=True)
+val_dl = DataLoader(val_ds , batch_size*2 , num_workers=4 , pin_memory=True)
+
+```
+
+<h4>
+  We can look at batches of images from the dataset using the make_grid method from torchvision. Each time the following code is run, we get a different bach, since the sampler shuffles the indices before creating batches.
+</h4>
+
+```
+from torchvision.utils import make_grid
+
+def show_batch(dl):
+    for images, labels in dl:
+        fig, ax = plt.subplots(figsize=(12, 6))
+        ax.set_xticks([]); ax.set_yticks([])
+        ax.imshow(make_grid(images, nrow=16).permute(1, 2, 0))
+        break
+
+show_batch(train_dl)
+```
+
+<img src = "https://github.com/Vinit-joshi2/Image-Classification-using-CNN/blob/main/image2.1.png">
+
+```
+show_batch(val_dl)
+```
+<img src = "https://github.com/Vinit-joshi2/Image-Classification-using-CNN/blob/main/image2.2.png">
+
