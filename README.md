@@ -198,3 +198,106 @@ class Cifar10CnnModel(ImageClassificationBase):
 
 ```
 
+### 4. Training the Model
+
+<h4>We can use the exact same fit and evaluate functions</h4>
+
+```
+def evaluate(model , val_loader):
+  model.eval()
+  outputs = [model.validation_step(batch) for batch in val_loader]
+
+  return model.validation_epoch_end(outputs)
+
+
+def fit(epochs , lr , model , train_loader  , val_loader ,opt_func = torch.optim.SGD):
+
+  history = []
+  optimizer = opt_func(model.parameters() , lr)
+  for epoch in range(epochs):
+    # Training Phase
+    model.train()
+    train_losses = []
+    for batch in train_loader:
+      loss = model.training_step(batch)
+      train_losses.append(loss)
+      loss.backward()
+      optimizer.step()
+      optimizer.zero_grad()
+
+
+    # Validation phase
+
+
+    result = evaluate(model , val_loader)
+    result["train_loss"] = torch.stack(train_losses).mean().item()
+    model.epoch_end(epochs , result)
+    history.append(result)
+
+  return history
+
+```
+
+```
+evaluate(model , val_dl)
+```
+
+<img src = "https://github.com/Vinit-joshi2/Image-Classification-using-CNN/blob/main/image4.1.png">
+
+<h4>
+  The initial accuracy is around 10%, which is what one might expect from a randomly intialized model (since it has a 1 in 10 chance of getting a label right by guessing randomly).
+</h4>
+
+```
+num_epochs = 10
+opt_func = torch.optim.Adam
+lr = 0.001
+
+history = fit(num_epochs , lr , model , train_dl , val_dl , opt_func)
+```
+
+<img src = "https://github.com/Vinit-joshi2/Image-Classification-using-CNN/blob/main/image4.2.png">
+
+<h4>
+  We can also plot the valdation set accuracies to study how the model improves over time.
+</h4>
+
+```
+def plot_accuracies(history):
+    accuracies = [x['val_acc'] for x in history]
+    plt.plot(accuracies, '-x')
+    plt.xlabel('epoch')
+    plt.ylabel('accuracy')
+    plt.title('Accuracy vs. No. of epochs');
+
+plot_accuracies(history)
+
+```
+
+<img src = "https://github.com/Vinit-joshi2/Image-Classification-using-CNN/blob/main/image4.3.png>
+
+<h4>
+  Our model reaches an accuracy of around 75%, and by looking at the graph, it seems unlikely that the model will achieve an accuracy higher than 80% even after training for a long time. This suggests that we might need to use a more powerful model to capture the relationship between the images and the labels more accurately. This can be done by adding more convolutional layers to our model, or incrasing the no. of channels in each convolutional layer, or by using regularization techniques.
+</h4>
+
+```
+def plot_losses(history):
+    train_losses = [x.get('train_loss') for x in history]
+    val_losses = [x['val_loss'] for x in history]
+    plt.plot(train_losses, '-bx')
+    plt.plot(val_losses, '-rx')
+    plt.xlabel('epoch')
+    plt.ylabel('loss')
+    plt.legend(['Training', 'Validation'])
+    plt.title('Loss vs. No. of epochs');
+
+plot_losses(history)
+
+```
+
+
+<img src = "https://github.com/Vinit-joshi2/Image-Classification-using-CNN/blob/main/image4.3.png>
+
+<h4>
+  Initialy, both the training and validation losses seem to decrease over time. However, if you train the model for long enough, you will notice that the training loss continues to decrease, while the validation loss stops decreasing, and even starts to increase after a certain point!
+</h4>
