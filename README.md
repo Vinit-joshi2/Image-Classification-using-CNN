@@ -274,7 +274,7 @@ plot_accuracies(history)
 
 ```
 
-<img src = "https://github.com/Vinit-joshi2/Image-Classification-using-CNN/blob/main/image4.3.png>
+<img src = "https://github.com/Vinit-joshi2/Image-Classification-using-CNN/blob/main/image4.3.png">
 
 <h4>
   Our model reaches an accuracy of around 75%, and by looking at the graph, it seems unlikely that the model will achieve an accuracy higher than 80% even after training for a long time. This suggests that we might need to use a more powerful model to capture the relationship between the images and the labels more accurately. This can be done by adding more convolutional layers to our model, or incrasing the no. of channels in each convolutional layer, or by using regularization techniques.
@@ -296,7 +296,7 @@ plot_losses(history)
 ```
 
 
-<img src = "https://github.com/Vinit-joshi2/Image-Classification-using-CNN/blob/main/image4.3.png>
+<img src = "https://github.com/Vinit-joshi2/Image-Classification-using-CNN/blob/main/image4.3.png">
 
 <h4>
   Initialy, both the training and validation losses seem to decrease over time. However, if you train the model for long enough, you will notice that the training loss continues to decrease, while the validation loss stops decreasing, and even starts to increase after a certain point!
