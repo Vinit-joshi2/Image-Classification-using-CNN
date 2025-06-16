@@ -60,6 +60,32 @@ print(ship_test_files[:5])
 ```
 <img src = "https://github.com/Vinit-joshi2/Image-Classification-using-CNN/blob/main/image1.2.png">
 
+- Image size
+
+  ```
+  img , label = dataset[0]
+  print(img.shape , label)
+
+  ```
+
+<img src = "https://github.com/Vinit-joshi2/Image-Classification-using-CNN/blob/main/image1.3.png">
+
+- View image
+
+  ```
+  import matplotlib.pyplot as plt
+  %matplotlib inline
+  
+  def show_example(img , label):
+    print("Label :" , dataset.classes[label]  , "(" + str(label)+ ")")
+    plt.imshow(img.permute(1 , 2 , 0))
+
+  show_example(*dataset[344])
+  
+  ```
+
+<img src = "https://github.com/Vinit-joshi2/Image-Classification-using-CNN/blob/main/image1.4.png">
+
   
 
 ### 2. Model Architecture (CNN)
