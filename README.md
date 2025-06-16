@@ -50,7 +50,7 @@ airplane_files = os.listdir(data_dir + "/train/airplane")
 print('No. of training examples for airplanes:', len(airplane_files))
 print(airplane_files[:5])
 ```
-<img>
+<img src = "https://github.com/Vinit-joshi2/Image-Classification-using-CNN/blob/main/image1.1.png">
 
 ```
 ship_test_files = os.listdir(data_dir + "/test/ship")
@@ -58,7 +58,8 @@ print("No. of test examples for ship:", len(ship_test_files))
 print(ship_test_files[:5])
 
 ```
-<img>
+<img src = "https://github.com/Vinit-joshi2/Image-Classification-using-CNN/blob/main/image1.2.png">
+
   
 
 ### 2. Model Architecture (CNN)
