@@ -296,7 +296,7 @@ plot_losses(history)
 ```
 
 
-<img src = "https://github.com/Vinit-joshi2/Image-Classification-using-CNN/blob/main/image4.3.png">
+<img src = "https://github.com/Vinit-joshi2/Image-Classification-using-CNN/blob/main/image4.4.png">
 
 <h4>
   Initialy, both the training and validation losses seem to decrease over time. However, if you train the model for long enough, you will notice that the training loss continues to decrease, while the validation loss stops decreasing, and even starts to increase after a certain point!
