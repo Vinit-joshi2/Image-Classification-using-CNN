@@ -339,3 +339,14 @@ def predict(input):
 
 <img src = "https://github.com/Vinit-joshi2/Image-Classification-using-CNN/blob/main/image5.3.png">
 
+
+
+
+##  Tech Stack
+ - Python
+
+ - Pytorch
+
+ - NumPy / Matplotlib
+
+- Jupyter Notebook / Google Colab
