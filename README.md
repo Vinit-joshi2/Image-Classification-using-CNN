@@ -301,3 +301,51 @@ plot_losses(history)
 <h4>
   Initialy, both the training and validation losses seem to decrease over time. However, if you train the model for long enough, you will notice that the training loss continues to decrease, while the validation loss stops decreasing, and even starts to increase after a certain point!
 </h4>
+
+### 5. Testing with individual images
+
+<h4>
+  While we have been tracking the overall accuracy of a model so far, it's also a good idea to look at model's results on some sample images. Let's test out our model with some images from the predefined test dataset of 10000 images
+</h4>
+
+```
+from torchvision.datasets import ImageFolder
+test_dataset = ImageFolder(data_dir + "/test" , transform=ToTensor())
+
+
+def predict_image(img , models):
+  # convert to a batch 1
+  xb = to_device(img.unsqueeze(0) , device)
+  # Get predictions from model
+  yb = model(xb)
+  # Pick index with highest probabailty
+  _, preds = torch.max(yb  , dim = 1)
+  # Retrive the class label
+  return dataset.classes[preds[0].item()]
+
+
+img, label = test_dataset[0]
+plt.imshow(img.permute(1, 2, 0))
+print('Label:', dataset.classes[label], ', Predicted:', predict_image(img, model))
+
+```
+
+<img src = "https://github.com/Vinit-joshi2/Image-Classification-using-CNN/blob/main/image5.1.png">
+
+<h4>
+  It's very hard to recognize whether image indicate airplace or not through our human eye , But still our model is able to predict the airplane
+</h4>
+
+
+<img src = "https://github.com/Vinit-joshi2/Image-Classification-using-CNN/blob/main/image5.2.png">
+
+<h4>
+  Here our model sightly work differently as per dataset image indicate the automobile but our model predict ship , It might possible, beacuse size of automobile and ship sightly same. Accuracy of our model is around 75% still 25% our model can predict wrong label for some images
+
+way to solve this problem?
+
+ - Data Augmentaton
+ - BatchNormalize
+ - Dropout
+ - 
+</h4>
