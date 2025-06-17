@@ -324,9 +324,10 @@ def predict_image(img , models):
   return dataset.classes[preds[0].item()]
 
 
-img, label = test_dataset[0]
-plt.imshow(img.permute(1, 2, 0))
-print('Label:', dataset.classes[label], ', Predicted:', predict_image(img, model))
+def predict(input):
+  img, label = test_dataset[input]
+  plt.imshow(img.permute(1, 2, 0))
+  print('Label:', dataset.classes[label], ', Predicted:', predict_image(img, model))
 
 ```
 
@@ -336,16 +337,5 @@ print('Label:', dataset.classes[label], ', Predicted:', predict_image(img, model
   It's very hard to recognize whether image indicate airplace or not through our human eye , But still our model is able to predict the airplane
 </h4>
 
+<img src = "https://github.com/Vinit-joshi2/Image-Classification-using-CNN/blob/main/image5.3.png">
 
-<img src = "https://github.com/Vinit-joshi2/Image-Classification-using-CNN/blob/main/image5.2.png">
-
-<h4>
-  Here our model sightly work differently as per dataset image indicate the automobile but our model predict ship , It might possible, beacuse size of automobile and ship sightly same. Accuracy of our model is around 75% still 25% our model can predict wrong label for some images
-
-way to solve this problem?
-
- - Data Augmentaton
- - BatchNormalize
- - Dropout
- - 
-</h4>
